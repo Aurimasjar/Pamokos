@@ -11,7 +11,7 @@ namespace Dictionary
     {
         static void Main(string[] args)
         {
-            List<string> fileTextLines = File.ReadLines(@"D:\SAUGYKLA\Aurimas 4G\Pamokos\Dictionary\Dictionary\chatBot.txt").ToList();
+            List<string> fileTextLines = File.ReadLines(@"D:\SAUGYKLA\Aurimas 4G\Pamokos\5_pamoka_11_08\Dictionary\Dictionary\chatBot.txt").ToList();
             string[] splitLine;
             Dictionary<string, string> dictionary = //new Dictionary<string, string>();
             fileTextLines.ToDictionary(item => item.Split('~')[0].Trim(), item => item.Split('~')[1].Trim());
