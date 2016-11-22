@@ -21,6 +21,8 @@ namespace ChatClientConsole
             */
 
             string userName, userPass;
+            MyChatClient chat = new MyChatClient();
+
 
             Console.Write("Įveskite prisijungimo vardą: ");
             userName = Console.ReadLine().Trim();
@@ -28,7 +30,7 @@ namespace ChatClientConsole
             Console.Write("Įveskite prisijungimo slaptažodį: ");
             userPass = Console.ReadLine().Trim();
 
-            if (true/* cia turi buti kodas kuris darytu prisijungima */)
+            if (chat.Login(userName, userPass))
             {
                 ConsoleKeyInfo userMenuInput = new ConsoleKeyInfo();
 
@@ -42,7 +44,7 @@ namespace ChatClientConsole
 
                         InputMessage(out messageRecipient, out messageText);
 
-                        if (true/* cia turi buti kodas kuris siustu zinute */)
+                        if (chat.SendAMessage(messageRecipient, messageText))
                         {
                             OutputMessageSent();
                         }
@@ -50,10 +52,10 @@ namespace ChatClientConsole
                         {
                             OutputMessageNotSent();
                         }
-                    }
                     else if (userMenuInput.KeyChar == '2')
+                    }
                     {
-                        string[] senders = new string[] { "Jonas", "Petras", "Bronius" }; /* cia turi buti kodas kuris uzpildytu siunteju sarasa */
+                        string[] senders = chat.Messages(); /* cia turi buti kodas kuris uzpildytu siunteju sarasa */
 
                         OutputSenders(senders);
                     }
@@ -64,7 +66,7 @@ namespace ChatClientConsole
 
                         InputSender(out sender);
 
-                        messages = new string[] { "Žinutės nr. 1", "antra žinutė", "žinutė paskutinė" }; /* cia turi buti kodas kuris uzpildytu zinuciu sarasa */
+                        messages = chat.UserMessages(sender); /* cia turi buti kodas kuris uzpildytu zinuciu sarasa */
 
                         OutputMessages(messages);
                     }
