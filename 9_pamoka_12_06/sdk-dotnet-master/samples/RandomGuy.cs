@@ -16,7 +16,7 @@ namespace CodeFights.samples
             {
                 var area = areas[_random.Next(5)];
 
-                if (_random.NextDouble() < 0.4)
+                if (_random.NextDouble() < 0.25)
                 {
                     move.AddDefence(area);
                 }
