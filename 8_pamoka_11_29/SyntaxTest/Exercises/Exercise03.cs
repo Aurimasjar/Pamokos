@@ -9,5 +9,15 @@
 
           Parašykite viešą konstruktorių, kuris primtų vieną string tipo parametrą, kurio pavadinimas yra myName.
         */
+
+        public string MyName
+        {
+            get;
+            private set;
+        }
+        public Exercise03(string myName)
+        {
+            MyName = myName;
+        }
     }
 }

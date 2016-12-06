@@ -8,5 +8,10 @@ namespace SyntaxTest.Exercises
           Parašykite viešą metodą pavadinimu Greet, kuris nieko negrąžina (tipas - void). Šis metodas neturi turėti jokių parametrų.
           Metodų pavadinai rašomi iš didžiosios raidės "Pascal case".
         */
+
+        public void Greet()
+        {
+
+        }
     }
 }
