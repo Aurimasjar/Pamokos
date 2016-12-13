@@ -55,7 +55,10 @@
     <Compile Include="MyFighter.cs" />
     <Compile Include="boilerplate\SDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="samples\BeveikPrizininkas.cs" />
+>>>>>>> 8c8a4dfd89a54b751701ac0f666385577b163b88
     <Compile Include="samples\RandomGuy.cs" />
     <Compile Include="samples\SimpleGuy.cs" />
     <Compile Include="samples\Boxer.cs" />
