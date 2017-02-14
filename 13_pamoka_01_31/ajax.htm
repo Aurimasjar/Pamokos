@@ -15,9 +15,12 @@
       <script type="text/javascript">
          $(document).ready(function() {
            
-			
+             var map = new google.maps.Map($("#map")[0]);
+
+            
+
 			function mapInit(){
-			 var map = new google.maps.Map($("#map")[0]);
+			 
             var places = [
                {
                   title : "Stotis",
@@ -39,7 +42,15 @@
                      lat : 54.723439,
                      lng : 25.215947
                   }
-               }
+               },
+              /* {
+                   title : "Katedra",
+                   coords: {
+                       lat: 54.823439,
+                       lng: 25.315947
+                   }
+               }*/
+
             ]
             map.setZoom(12);
             map.setCenter(places[0].coords);
@@ -85,17 +96,63 @@
 						
 						var longitude  = addressLocation.lng;
 						var latitude = addressLocation.lat;
+						console.log(resultObj);
+						var marker = new google.maps.Marker({
+						    title: resultObj.results[0].formatted_address,
+						    position: addressLocation,
+						    map: map
+						});
 					}                    
-                });
+				});
 			}
-			
+			function searching(params) {
+			    var addressSearchString = params; // Creating the search string as defined by Google.
+			    var apiKey = 'AIzaSyCakLX6cS6IF12R2tF_--5JBJLxrd0csvw'; // Our API key
+			    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={API_key}'; // Format of the request URL
+
+			    url = url.replace('{address}', addressSearchString); // Inserting the search string into our URL
+			    url = url.replace('{API_key}', apiKey); // Inserting our API key into the URL
+
+			    // Making a server call to Google.
+			    $.ajax({
+			        url: url, // Defines the address we are requesting. The results can be viewed on browser by entering the URL in the browser's address input. 
+			        cache: false, // Forcing the result to be fetched from Google every time we make a call. Without this The results of the first call would always be returned from Google. If Google would update the information about the location we are requesting, we would not see the newest results.
+			        success: function (resultObj) { // Defines what happens once a call is made to Google. In our case we extract the longitude and altitude parameters for future use.
+			            var addressLocation = resultObj.results[0].geometry.location;
+
+			            var pointer = {
+			                title: params,
+			                coords: addressLocation
+			            }
+			            places.push(pointer);
+
+			            console.log(resultObj);
+			            var marker = new google.maps.Marker({
+			                title: resultObj.results[0].formatted_address,
+			                position: addressLocation,
+			                map: map
+
+			            });
+			        }
+			    });
+			}
+			$("#searchButton").on("click", onSearch);
+			function onSearch()
+			{
+			    var adressParams = $("#searchInput").val();
+			    searching(adressParams);
+			}
+
 			mapInit();
 			solveTask1(); // Calling the function that solves the first task.
          });
       </script>
    </head>
    <body>
+        <input id="searchInput" type="text">
+        <button id="searchButton">paieška</button>
       <ul id="places"></ul>
       <div id="map" />
+      
    </body>
 </html>
