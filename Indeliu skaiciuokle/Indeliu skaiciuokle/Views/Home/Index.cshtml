@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Indėlių skaičiuoklė</h2>
+        <form id="forma">
+            <div class="form-group">
+                <label for="indelioTipas">Indėlio tipas</label>
+                <select id="indelioTipas">
+                    <option value="kaupiamasis">Kaupiamasis</option>
+                    <option value="terminuotasis">Terminuotasis</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="suma">Indėlio suma</label>
+                <input type="text" class="form-control" id="suma">
+            </div>
+            <div class="form-group" id="papildymas-form-group">
+                <label for="papildymas">Mėnesinis įnašas</label>
+                <input type="text" class="form-control" id="papildymas">
+            </div>
+            <div class="form-group">
+                <label for="terminas">Terminas mėnesiais</label>
+                <input type="text" class="form-control" id="terminas">
+            </div>
+            <div class="form-group">
+                <label for="palukanos">Palūkanos</label>
+                <input type="text" class="form-control" id="palukanos">
+            </div>
+            <button id="skaiciuoti" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="well well-lg"><span>Sutaupyta suma: </span><span id="sutaupytaSuma"></span></div>
+    </div>
+</div>
