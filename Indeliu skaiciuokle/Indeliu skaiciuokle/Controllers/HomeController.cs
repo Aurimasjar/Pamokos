@@ -14,10 +14,17 @@ namespace Indeliu_skaiciuokle.Controllers
             return View();
         }
         [HttpPost]
-        public double Skaiciuoti(Skaiciuokle skaiciuokle)
+        public JsonResult Skaiciuoti(Skaiciuokle skaiciuokle)
         {
-            
-            return (skaiciuokle.Skaiciuoti());
+            if((skaiciuokle.terminas > 0) && (skaiciuokle.terminas <= 60))
+            { 
+                return Json(new{rezultatas = skaiciuokle.Skaiciuoti(), rezultatas2 = "Labas"});
+            }
+            else
+            {
+                return Json(new {rezultatas2 = "Terminas turi būti tarp 0 ir 60 mėnesių" });
+            }
+           
         }
 
         public ActionResult About()

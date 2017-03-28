@@ -20,7 +20,8 @@
             // using the done promise callback
             .done(function (data) {
                 // log data to the console so we can see
-                $("#sutaupytaSuma").html(data);
+                $("#sutaupytaSuma").html(data.rezultatas);
+                $("#pranesimas").html(data.rezultatas2);
 
                 // here we will handle errors and validation messages
             });
