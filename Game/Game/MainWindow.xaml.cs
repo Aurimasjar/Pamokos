@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Game
 {
@@ -25,6 +26,7 @@ namespace Game
         int zingsnis;
         string speta;
         bool baigtas;
+        List<string> neteisingai;
 
         public MainWindow()
         {
@@ -42,10 +44,14 @@ namespace Game
 
         private void paruosti()
         {
+            neteisingai = new List<string>();
+            string[] zodziai = File.ReadAllLines("textfile1.txt");
+            int rnd = new System.Random().Next(0, zodziai.Length - 1);
             etapai = new List<Shape>();
-            zodis = "etapas";
+            zodis = zodziai[rnd];
             zingsnis = 0;
             baigtas = false;
+            aktyvuotojas.Visibility = Visibility.Collapsed;
 
             speta = "";
             for (int i = 0; i < zodis.Length; i++)
@@ -79,9 +85,17 @@ namespace Game
                         if (!speta.Contains(textBox.Text))
                         {
                             if (!zodis.Contains(textBox.Text))
-                            {
-                                etapai[zingsnis].Visibility = Visibility.Visible;
-                                zingsnis++;
+                            { 
+                                if(!neteisingai.Contains(textBox.Text))
+                                {
+                                    etapai[zingsnis].Visibility = Visibility.Visible;
+                                    zingsnis++;
+                                    //neteisingai.Add(textBox.Text);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Tokia raidė jau spėta");
+                                }
                             }
                             else
                             {
@@ -114,6 +128,7 @@ namespace Game
                 }
                 else
                 {
+                    aktyvuotojas.Visibility = Visibility.Visible;
                     MessageBox.Show("Pralaimėjai :(");
                     baigtas = true;
                 }
