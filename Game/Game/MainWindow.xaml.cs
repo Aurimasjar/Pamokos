@@ -26,7 +26,7 @@ namespace Game
         int zingsnis;
         string speta;
         bool baigtas;
-        List<string> neteisingai;
+        List<char> neteisingai;
 
         public MainWindow()
         {
@@ -44,7 +44,7 @@ namespace Game
 
         private void paruosti()
         {
-            neteisingai = new List<string>();
+            neteisingai = new List<char>();
             string[] zodziai = File.ReadAllLines("textfile1.txt");
             int rnd = new System.Random().Next(0, zodziai.Length - 1);
             etapai = new List<Shape>();
@@ -60,6 +60,9 @@ namespace Game
             }
             textBlock.Text = speta;
 
+            nepataikytos.Text = "";
+
+
             etapai.Add(rct1);
             etapai.Add(rct2);
             etapai.Add(virve);
@@ -73,24 +76,36 @@ namespace Game
             slepimas();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
-            if (!baigtas)
-            {
-                if (zingsnis < 9)
-                {
-                    if (!string.IsNullOrWhiteSpace(textBox.Text))
-                    {
+            paruosti();
+        }
 
-                        if (!speta.Contains(textBox.Text))
+        private void Grid_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void Window_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            char parsedCharacter;
+            if (Char.TryParse(e.Text, out parsedCharacter))
+            {
+                parsedCharacter = Char.ToUpper(parsedCharacter);
+                if (!baigtas)
+                {
+                    if (zingsnis < 9)
+                    {
+                        if (!speta.ToUpper().Contains(parsedCharacter))
                         {
-                            if (!zodis.Contains(textBox.Text))
-                            { 
-                                if(!neteisingai.Contains(textBox.Text))
+                            if (!zodis.ToUpper().Contains(parsedCharacter))
+                            {
+                                if (!neteisingai.Contains(parsedCharacter))
                                 {
                                     etapai[zingsnis].Visibility = Visibility.Visible;
                                     zingsnis++;
-                                    //neteisingai.Add(textBox.Text);
+                                    neteisingai.Add(parsedCharacter);
+                                    nepataikytos.Text += parsedCharacter + Environment.NewLine;
                                 }
                                 else
                                 {
@@ -102,9 +117,9 @@ namespace Game
                                 string naujas = "";
                                 for (int i = 0; i < zodis.Length; i++)
                                 {
-                                    if (textBox.Text == zodis[i].ToString())
+                                    if (parsedCharacter == Char.ToUpper(zodis[i]))
                                     {
-                                        naujas += textBox.Text;
+                                        naujas += parsedCharacter;
                                     }
                                     else
                                     {
@@ -113,10 +128,11 @@ namespace Game
                                 }
                                 speta = naujas;
                                 textBlock.Text = speta;
-                                if (speta == zodis)
+                                if (speta.ToUpper() == zodis.ToUpper())
                                 {
                                     MessageBox.Show("Laimėjai :)");
                                     baigtas = true;
+                                    button1.Focus();
                                 }
                             }
                         }
@@ -125,19 +141,19 @@ namespace Game
                             MessageBox.Show("Tokia raidė jau spėta");
                         }
                     }
+                    else
+                    {
+                        baigtas = true;
+                    }
                 }
                 else
                 {
                     aktyvuotojas.Visibility = Visibility.Visible;
                     MessageBox.Show("Pralaimėjai :(");
                     baigtas = true;
+                    button1.Focus();
                 }
             }
-        }
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            paruosti();
         }
     }
 }
